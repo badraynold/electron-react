@@ -16,8 +16,15 @@ const App = () => {
     {
       _id: 2,
       text: "This is log two",
-      priority: "low",
+      priority: "moderate",
       user: "Kate",
+      created: new Date().toString(),
+    },
+    {
+      _id: 3,
+      text: "This is log three",
+      priority: "high",
+      user: "Tom",
       created: new Date().toString(),
     },
   ]);
