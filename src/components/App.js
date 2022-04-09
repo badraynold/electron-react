@@ -7,14 +7,14 @@ const App = () => {
   const [counter, setCounter] = useState(0);
   const [logs, setLogs] = useState([
     {
-      id: 1,
+      _id: 1,
       text: "This is log one",
       priority: "low",
       user: "Brad",
       created: new Date().toString(),
     },
     {
-      id: 2,
+      _id: 2,
       text: "This is log two",
       priority: "low",
       user: "Kate",
@@ -36,7 +36,7 @@ const App = () => {
         </thead>
         <tbody>
           {logs.map((item) => (
-            <LogItem key={item.id} item={item} />
+            <LogItem key={item._id} item={item} />
           ))}
         </tbody>
       </Table>
