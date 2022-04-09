@@ -14,7 +14,7 @@ const App = () => {
       created: new Date().toString(),
     },
     {
-      id: 1,
+      id: 2,
       text: "This is log two",
       priority: "low",
       user: "Kate",
@@ -36,7 +36,7 @@ const App = () => {
         </thead>
         <tbody>
           {logs.map((item) => (
-            <LogItem item={item} />
+            <LogItem key={item.id} item={item} />
           ))}
         </tbody>
       </Table>
