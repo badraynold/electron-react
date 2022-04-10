@@ -47,11 +47,17 @@ const App = () => {
     if (item.text === "" || item.user === "" || item.priority === "") {
       showAlert("Please enter all fields", "danger");
     } else {
-      item._id = Math.max(...logs.map((item) => item._id)) + 1;
+      const max = Math.max(...logs.map((item) => item._id));
+      item._id = max !== -Infinity ? max + 1 : 0;
       item.created = new Date().toString();
       setLogs([...logs, item]);
       showAlert("Item just added");
     }
+  };
+
+  const deleteItem = (id) => {
+    setLogs(logs.filter((item) => item._id !== id));
+    showAlert("Item just deleted", "warning");
   };
 
   useEffect(() => {
@@ -82,7 +88,7 @@ const App = () => {
         </thead>
         <tbody>
           {logs.map((item) => (
-            <LogItem key={item._id} item={item} />
+            <LogItem key={item._id} item={item} deleteItem={deleteItem} />
           ))}
         </tbody>
       </Table>

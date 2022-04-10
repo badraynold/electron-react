@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Badge } from "react-bootstrap";
 import Moment from "react-moment";
 
-const LogItem = ({ item }) => {
+const LogItem = ({ item, deleteItem }) => {
   const getVariant = (priority) => {
     let ret = "danger";
 
@@ -30,7 +30,7 @@ const LogItem = ({ item }) => {
         </Moment>
       </td>
       <td>
-        <Button variant="danger" size="sm">
+        <Button variant="danger" size="sm" onClick={() => deleteItem(item._id)}>
           x
         </Button>
       </td>
