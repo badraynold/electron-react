@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Form, Row, Col, Button } from "react-bootstrap";
 
-export const AddLogItem = () => {
+export const AddLogItem = ({ addItem }) => {
   const [text, setText] = useState("");
   const [user, setUser] = useState("");
   const [priority, setPriority] = useState();
@@ -9,7 +9,19 @@ export const AddLogItem = () => {
   return (
     <Card className="mt-5 mb-3">
       <Card.Body>
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addItem({
+              text,
+              user,
+              priority,
+            });
+            setText("");
+            setUser("");
+            setPriority();
+          }}
+        >
           <Row className="my-3">
             <Col>
               <Form.Control

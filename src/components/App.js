@@ -30,9 +30,15 @@ const App = () => {
     },
   ]);
 
+  const addItem = (item) => {
+    item._id = Math.max(logs.map((item) => item._id)) + 1;
+    item.created = new Date().toString();
+    setLogs([...logs, item]);
+  };
+
   return (
     <Container>
-      <AddLogItem />
+      <AddLogItem addItem={addItem} />
       <Table>
         <thead>
           <tr>
