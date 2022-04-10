@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Badge } from "react-bootstrap";
+import Moment from "react-moment";
 
 const LogItem = ({ item }) => {
   const getVariant = (priority) => {
     let ret = "danger";
-    console.log(priority);
+
     switch (priority) {
       case "high":
         return "danger";
@@ -23,7 +24,11 @@ const LogItem = ({ item }) => {
       </td>
       <td>{item.text}</td>
       <td>{item.user}</td>
-      <td>{item.created}</td>
+      <td>
+        <Moment format="MMMM Do YYYY, h:mm:ss A">
+          {new Date(item.created)}
+        </Moment>
+      </td>
       <td>
         <Button variant="danger" size="sm">
           x
