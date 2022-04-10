@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Table from "react-bootstrap/Table";
+import React, { useEffect, useState, useRef } from "react";
+import { Container, Alert, Table } from "react-bootstrap";
 import LogItem from "./LogItem";
 import AddLogItem from "./AddLogItem";
 
 const App = () => {
   const [counter, setCounter] = useState(0);
+  const timerRef = useRef();
+  const [alert, setAlert] = useState({
+    show: false,
+    message: "",
+    variant: "success",
+  });
   const [logs, setLogs] = useState([
     {
       _id: 1,
@@ -30,15 +35,41 @@ const App = () => {
     },
   ]);
 
-  const addItem = (item) => {
-    item._id = Math.max(logs.map((item) => item._id)) + 1;
-    item.created = new Date().toString();
-    setLogs([...logs, item]);
+  const showAlert = (message, variant = "success") => {
+    setAlert({
+      show: true,
+      message,
+      variant,
+    });
   };
+
+  const addItem = (item) => {
+    if (item.text === "" || item.user === "" || item.priority === "") {
+      showAlert("Please enter all fields", "danger");
+    } else {
+      item._id = Math.max(...logs.map((item) => item._id)) + 1;
+      item.created = new Date().toString();
+      setLogs([...logs, item]);
+      showAlert("Item just added");
+    }
+  };
+
+  useEffect(() => {
+    if (alert.show) {
+      timerRef.current = setTimeout(() => setAlert({ show: false }), 4000);
+    }
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = undefined;
+      }
+    };
+  }, [alert]);
 
   return (
     <Container>
       <AddLogItem addItem={addItem} />
+      {alert.show && <Alert variant={alert.variant}>{alert.message}</Alert>}
       <Table>
         <thead>
           <tr>

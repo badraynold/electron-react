@@ -19,7 +19,7 @@ export const AddLogItem = ({ addItem }) => {
             });
             setText("");
             setUser("");
-            setPriority();
+            setPriority(0);
           }}
         >
           <Row className="my-3">
